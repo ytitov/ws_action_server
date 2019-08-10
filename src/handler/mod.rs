@@ -64,7 +64,8 @@ impl Client {
     //fn send (&self, s: (usize, MessageRequest, Option<Bytes>, BytesActionTx, ws::Sender)) {
     // TODO: handle this error and disconnect client
     fn send(&mut self, s: (usize, Action, Option<Bytes>, ws::Sender)) {
-        match self.tx_to_service.clone().wait().send(s) {
+        match self.tx_to_service.unbounded_send(s) {
+        //match self.tx_to_service.clone().wait().send(s) {
             Ok(_) => (),
             Err(e) => {
                 println!("handler/mod.rs ERROR: {:?}", e);
