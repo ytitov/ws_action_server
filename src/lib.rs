@@ -1,7 +1,7 @@
 extern crate serde_json;
 pub mod handler;
 pub mod service;
-use json_action;
+pub use json_action;
 
 #[cfg(test)]
 mod tests {
