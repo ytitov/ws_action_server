@@ -39,6 +39,17 @@ impl Client {
                 } else {
                     return Err("Could not read the json string".to_owned());
                 }
+                match rdr.read_u8() {
+                    Ok(val) => buf.push(val),
+                    Err(e) => {
+                        return Err(format!("Could not read the json string; Error: {}; trying to decode: {:?}; total_size: {}: json_str_len: {}; binary buf size: {}", 
+                                e.to_string(), &buf,
+                                total_size,
+                                json_str_len,
+                                total_size - json_str_len as usize,
+                        ));
+                    },
+                }
             }
 
             //let mut buf_bytes: Vec<u8> = Vec::with_capacity(total_size - json_str_len as usize);
