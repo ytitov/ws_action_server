@@ -54,7 +54,12 @@ impl Client {
 
             match serde_json::from_slice::<Action>(buf.as_slice()) {
                 Ok(msg_req) => Ok((msg_req, buf_bytes.freeze())),
-                Err(e) => Err(format!("serde_json: {}, trying to decode: {:?}", e.to_string(), &buf)),
+                Err(e) => Err(format!("serde_json: {}, trying to decode: {:?}; total_size: {}: json_str_len: {}; binary buf size: {}", 
+                        e.to_string(), &buf,
+                        total_size,
+                        json_str_len,
+                        buf_size,
+                        )),
             }
         } else {
             return Err("Could not get the size of the json string in message".to_owned());
