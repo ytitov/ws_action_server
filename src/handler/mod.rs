@@ -7,7 +7,7 @@ use ws::{Handler, Message, Result as WSResult, Sender};
 use crate::service::{ActionRequestTx, Service};
 use json_action::{action::Action, error::ActionError};
 
-use futures::Sink; // trait, don't remove
+//use futures::Sink; // trait, don't remove
 
 pub struct Client {
     pub service: Arc<Mutex<Service>>,
